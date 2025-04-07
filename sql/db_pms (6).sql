@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2025 at 07:38 PM
+-- Generation Time: Apr 07, 2025 at 03:49 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -147,8 +147,7 @@ CREATE TABLE `inspection` (
 --
 
 INSERT INTO `inspection` (`id`, `request_no`, `date_inspected`, `details`, `inspected_by_id`, `inspected_by`, `inspected_by_date`, `conformed_by_id`, `conformed_by`, `conformed_by_date`, `verified_by_id`, `verified_by`, `verified_by_date`, `approved_by_id`, `approved_by`, `approved_by_date`, `status`, `with_job_order`, `date_entry`) VALUES
-(1, '01', '2025-04-02', 'Functional', 14, 'General Services', '2025-03-31', 17, 'Employee Employee', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', 'APPROVED', 'Yes', '2025-03-31 08:16:19'),
-(2, '21', '2025-04-09', 'Need Replacement of motherboard', 14, 'General Services', '2025-04-07', 32, 'Joshua Estay', '2025-04-07', 16, 'Pmo Ako', '2025-04-07', 13, 'Vp Admin', '2025-04-07', 'APPROVED', 'Yes', '2025-04-07 02:07:40');
+(1, '01', '2025-04-02', 'Functional', 14, 'General Services', '2025-03-31', 17, 'Employee Employee', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', 'APPROVED', 'Yes', '2025-03-31 08:16:19');
 
 -- --------------------------------------------------------
 
@@ -195,15 +194,13 @@ INSERT INTO `inventory` (`id`, `user_id`, `item_category`, `pr_no`, `date_purcha
 (11, 19, 'Office Supplies', '2025-3114', NULL, 2, 'Unit', 'Printer', NULL, NULL, NULL, 'No', 'Epson', '141', '123', '156', 'Functional', NULL, '2025-03-31 09:19:28'),
 (12, 29, 'Office Supplies', '2025-1291', '2025-04-01', 1, 'Unit', 'Laptop', NULL, '2025-04-01', '231', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-01 04:16:07'),
 (13, 29, 'Office Supplies', '2025-1291', '2025-04-01', 2, 'Unit', 'Printer', NULL, '2025-04-01', '231', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-01 04:16:07'),
+(14, 17, 'Office Supplies', '2025-1291', NULL, 1, 'Unit', 'Laptop', NULL, NULL, NULL, 'No', 'Acer', '1112', '512', '214', 'Functional', NULL, '2025-04-01 04:21:45'),
 (15, 30, 'Office Supplies', '2025-12812', '2025-04-03', 2, 'Unit', 'Laptop', NULL, '2025-04-03', '321', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-03 01:22:13'),
 (16, 30, 'Office Supplies', '2025-12812', '2025-04-03', 2, 'Unit', 'Printer', NULL, '2025-04-03', '321', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-03 01:22:13'),
 (17, 31, 'Construction Materials', '2025-301', '2025-04-03', 2, 'Unit', 'Welding Machine', NULL, '2025-04-03', '023', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-03 01:42:18'),
 (18, 31, 'Construction Materials', '2025-301', '2025-04-03', 2, 'Pcs', 'Martilyo', NULL, '2025-04-03', '023', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-03 01:42:18'),
 (19, 26, 'Office Supplies', '2025-0012', '2025-04-03', 2, 'Unit', 'Laptop', NULL, '2025-04-03', '33', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-03 02:26:23'),
-(20, 26, 'Office Supplies', '2025-0012', '2025-04-03', 2, 'Pcs', 'Table', NULL, '2025-04-03', '33', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-03 02:26:23'),
-(21, 32, 'Spareparts', '2025-103', '2025-04-07', 1, 'Pcs', 'Motherboard', NULL, '2025-04-07', '241', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-07 01:57:19'),
-(22, 32, 'Spareparts', '2025-103', '2025-04-07', 1, 'Kilo', 'Lansang', NULL, '2025-04-07', '241', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-07 01:57:19'),
-(23, 19, 'Office Supplies', '2025-1291', NULL, 1, 'Unit', 'Laptop', NULL, NULL, NULL, 'No', 'Acer', '1246', '21', '312', 'Functional', NULL, '2025-04-07 02:15:52');
+(20, 26, 'Office Supplies', '2025-0012', '2025-04-03', 2, 'Pcs', 'Table', NULL, '2025-04-03', '33', 'No', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-03 02:26:23');
 
 -- --------------------------------------------------------
 
@@ -237,8 +234,7 @@ CREATE TABLE `job_order` (
 --
 
 INSERT INTO `job_order` (`id`, `request_no`, `repair_type`, `date_repair`, `department`, `transaction`, `remarks`, `technician_by_id`, `technician_by`, `technician_by_date`, `verified_by_id`, `verified_by`, `verified_by_date`, `approved_by_id`, `approved_by`, `approved_by_date`, `status`, `date_entry`) VALUES
-(1, '01', 'Repair', '2025-04-03', 5, 'Repairing', 'Functional', 1, 'Randy Manto', '2025-03-31', 14, 'General Services', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 'APPROVED', '2025-03-31 08:20:14'),
-(2, '21', 'Replacement', '2025-04-09', 5, 'Replacement of motherboard', 'Done', 1, 'Randy Manto', '2025-04-07', 14, 'General Services', '2025-04-07', 16, 'Pmo Ako', '2025-04-07', 'APPROVED', '2025-04-07 02:12:52');
+(1, '01', 'Repair', '2025-04-03', 5, 'Repairing', 'Functional', 1, 'Randy Manto', '2025-03-31', 14, 'General Services', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 'APPROVED', '2025-03-31 08:20:14');
 
 -- --------------------------------------------------------
 
@@ -1156,69 +1152,7 @@ INSERT INTO `logs` (`id`, `user_id`, `logs_desc`, `date_entry`) VALUES
 (896, 17, 'Logged Out', '2025-04-03 09:55:17'),
 (897, 14, 'Logged In', '2025-04-03 09:55:22'),
 (898, 17, 'Logged In', '2025-04-04 02:11:17'),
-(899, 15, 'Logged In', '2025-04-07 00:58:09'),
-(900, 15, 'Logged Out', '2025-04-07 01:52:16'),
-(901, 1, 'Logged In', '2025-04-07 01:52:23'),
-(902, 1, 'Added user No. 32', '2025-04-07 01:55:35'),
-(903, 1, 'Logged Out', '2025-04-07 01:55:40'),
-(904, 32, 'Logged In', '2025-04-07 01:55:44'),
-(905, 15, 'Logged In', '2025-04-07 01:56:12'),
-(906, 15, 'Updated logsheet entry No. 2025-103', '2025-04-07 02:01:24'),
-(907, 15, 'Inserted a new withdrawal entry', '2025-04-07 02:01:24'),
-(908, 32, 'Added request entry No. 3', '2025-04-07 02:05:16'),
-(909, 15, 'Logged Out', '2025-04-07 02:06:21'),
-(910, 16, 'Logged In', '2025-04-07 02:06:26'),
-(911, 16, 'Logged Out', '2025-04-07 02:06:41'),
-(912, 13, 'Logged In', '2025-04-07 02:06:47'),
-(913, 13, 'Logged Out', '2025-04-07 02:07:03'),
-(914, 14, 'Logged In', '2025-04-07 02:07:09'),
-(915, 14, 'Added inspection entry No. 2', '2025-04-07 02:07:40'),
-(916, 14, 'Logged Out', '2025-04-07 02:08:00'),
-(917, 16, 'Logged In', '2025-04-07 02:08:05'),
-(918, 16, 'Logged Out', '2025-04-07 02:11:08'),
-(919, 13, 'Logged In', '2025-04-07 02:11:11'),
-(920, 13, 'Logged Out', '2025-04-07 02:11:48'),
-(921, 14, 'Logged In', '2025-04-07 02:12:02'),
-(922, 14, 'Added job order entry No. 2', '2025-04-07 02:12:52'),
-(923, 14, 'Logged Out', '2025-04-07 02:13:14'),
-(924, 13, 'Logged In', '2025-04-07 02:13:20'),
-(925, 13, 'Logged Out', '2025-04-07 02:13:37'),
-(926, 16, 'Logged In', '2025-04-07 02:13:42'),
-(927, 16, 'Logged Out', '2025-04-07 02:14:00'),
-(928, 32, 'Logged In', '2025-04-07 02:14:08'),
-(929, 32, 'Logged Out', '2025-04-07 02:15:15'),
-(930, 17, 'Logged In', '2025-04-07 02:15:19'),
-(931, 32, 'Logged Out', '2025-04-07 02:16:26'),
-(932, 14, 'Logged In', '2025-04-07 02:16:30'),
-(933, 17, 'Logged Out', '2025-04-07 02:23:31'),
-(934, 1, 'Logged In', '2025-04-07 02:23:40'),
-(935, 1, 'Logged Out', '2025-04-07 02:23:59'),
-(936, 29, 'Logged In', '2025-04-07 02:24:03'),
-(937, 29, 'Logged Out', '2025-04-07 02:24:38'),
-(938, 19, 'Logged In', '2025-04-07 02:24:49'),
-(939, 1, 'Logged In', '2025-04-07 12:02:21'),
-(940, 1, 'Logged Out', '2025-04-07 12:02:38'),
-(941, 1, 'Logged In', '2025-04-07 12:08:56'),
-(942, 1, 'Logged Out', '2025-04-07 12:19:57'),
-(943, 1, 'Logged Out', '2025-04-07 12:20:15'),
-(944, 1, 'Logged In', '2025-04-07 13:03:00'),
-(945, 1, 'Logged Out', '2025-04-07 13:05:41'),
-(946, 15, 'Logged In', '2025-04-07 13:05:46'),
-(947, 14, 'Logged In', '2025-04-07 13:09:58'),
-(948, 32, 'Logged In', '2025-04-07 16:58:17'),
-(949, 15, 'Logged Out', '2025-04-07 17:00:49'),
-(950, 16, 'Logged In', '2025-04-07 17:00:52'),
-(951, 16, 'Logged Out', '2025-04-07 17:02:54'),
-(952, 13, 'Logged In', '2025-04-07 17:02:57'),
-(953, 13, 'Logged Out', '2025-04-07 17:16:11'),
-(954, 15, 'Logged In', '2025-04-07 17:16:15'),
-(955, 32, 'Logged In', '2025-04-07 17:16:33'),
-(956, 32, 'Logged Out', '2025-04-07 17:18:58'),
-(957, 16, 'Logged In', '2025-04-07 17:19:02'),
-(958, 16, 'Logged Out', '2025-04-07 17:19:15'),
-(959, 13, 'Logged In', '2025-04-07 17:19:18'),
-(960, 13, 'Logged Out', '2025-04-07 17:19:42'),
-(961, 32, 'Logged In', '2025-04-07 17:19:46');
+(899, 15, 'Logged In', '2025-04-07 00:58:09');
 
 -- --------------------------------------------------------
 
@@ -1264,9 +1198,7 @@ INSERT INTO `logsheet` (`id`, `user_id`, `item_category`, `pr_no`, `date_purchas
 (15, 31, 'Construction Materials', '2025-301', '2025-04-03', 2, 'Unit', 'Welding Machine', '2025-04-03', '023', 2, 'Yes', '2025-04-03 01:42:18'),
 (16, 31, 'Construction Materials', '2025-301', '2025-04-03', 2, 'Pcs', 'Martilyo', '2025-04-03', '023', 2, 'Yes', '2025-04-03 01:42:18'),
 (17, 26, 'Office Supplies', '2025-0012', '2025-04-03', 2, 'Unit', 'Laptop', '2025-04-03', '33', 2, 'Yes', '2025-04-03 02:26:23'),
-(18, 26, 'Office Supplies', '2025-0012', '2025-04-03', 2, 'Pcs', 'Table', '2025-04-03', '33', 2, 'Yes', '2025-04-03 02:26:23'),
-(19, 32, 'Spareparts', '2025-103', '2025-04-07', 2, 'Pcs', 'Motherboard', '2025-04-07', '241', 2, 'Yes', '2025-04-07 01:57:19'),
-(20, 32, 'Spareparts', '2025-103', '2025-04-07', 2, 'Kilo', 'Lansang', '2025-04-07', '241', 2, 'Yes', '2025-04-07 01:57:19');
+(18, 26, 'Office Supplies', '2025-0012', '2025-04-03', 2, 'Pcs', 'Table', '2025-04-03', '33', 2, 'Yes', '2025-04-03 02:26:23');
 
 -- --------------------------------------------------------
 
@@ -1302,7 +1234,9 @@ CREATE TABLE `property_disposal` (
 --
 
 INSERT INTO `property_disposal` (`id`, `date`, `department`, `item_category`, `prepared_by_id`, `prepared_by`, `checked_by_id`, `checked_by`, `checked_by_date`, `noted_by_id`, `noted_by`, `noted_by_date`, `approved_by_id`, `approved_by`, `approved_by_date`, `disapproved_by_id`, `comment`, `status`, `file`, `date_entry`) VALUES
-(1, '2025-04-08', 'CCIS', 'Spareparts', 32, 'Joshua Estay', 15, 'pc ako', '2025-04-08', 16, 'Pmo Ako', '2025-04-08', 13, 'Vp Admin', '2025-04-08', NULL, '', 'APPROVED', '1744046220_incident_report.pdf', '2025-04-07 17:17:13');
+(1, '2025-03-31', 'CCIS', 'Construction Materials', 17, 'Employee Employee', 15, 'pc ako', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', NULL, NULL, 'APPROVED', '1743410520_incident_report.pdf', '2025-03-31 08:42:01'),
+(2, '2025-03-31', 'CCIS', 'Construction Materials', 17, 'Employee Employee', 15, 'pc ako', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', NULL, NULL, 'APPROVED', '1743427080_incident_report.pdf', '2025-03-31 13:18:10'),
+(3, '2025-03-31', 'CAS', 'Office Supplies', 28, 'Jessa Claire Bernadette Cabusao', 15, 'pc ako', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', NULL, NULL, 'APPROVED', '1743427200_incident_report.pdf', '2025-03-31 13:20:52');
 
 -- --------------------------------------------------------
 
@@ -1313,7 +1247,6 @@ INSERT INTO `property_disposal` (`id`, `date`, `department`, `item_category`, `p
 CREATE TABLE `property_disposal_items` (
   `id` int(11) NOT NULL,
   `disposal_id` int(11) DEFAULT NULL,
-  `inventory_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `unit` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -1328,8 +1261,10 @@ CREATE TABLE `property_disposal_items` (
 -- Dumping data for table `property_disposal_items`
 --
 
-INSERT INTO `property_disposal_items` (`id`, `disposal_id`, `inventory_id`, `quantity`, `unit`, `description`, `property_code`, `brand`, `part_code`, `conditioned`, `remarks`) VALUES
-(1, 1, 22, 1, 'Kilo', 'Lansang', '1412', 'N/A', '14512', 'Dispose', 'Dispose');
+INSERT INTO `property_disposal_items` (`id`, `disposal_id`, `quantity`, `unit`, `description`, `property_code`, `brand`, `part_code`, `conditioned`, `remarks`) VALUES
+(1, 1, 50, 'pieces', 'Kabilya', '234', 'n/a', 'n/a', 'Functional', NULL),
+(2, 2, 10, 'pieces', 'Chair', '412', 'N/a', '12', 'Damage', NULL),
+(3, 3, 2, 'Ream', 'Bondpaper', '114', 'n/a', '124', 'dispose', 'For dispose');
 
 -- --------------------------------------------------------
 
@@ -1440,8 +1375,7 @@ CREATE TABLE `request_form` (
 --
 
 INSERT INTO `request_form` (`id`, `request_no`, `request_type`, `request_type_others`, `department`, `date_requested`, `location`, `date_action`, `details`, `requested_by_id`, `requested_by`, `endorsed_by_id`, `endorsed_by`, `endorsed_by_date`, `recommend_by_id`, `recommend_by`, `recommend_by_date`, `approved_by_id`, `approved_by`, `approved_by_date`, `status`, `is_inspected`, `is_feedback`, `date_entry`) VALUES
-(2, '01', 'Others', 'chairs', 5, '2025-03-31', '3rd Floor', '2025-03-31', 'Need Repairing', 17, 'Employee Employee', 15, 'pc ako', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', 'APPROVED', 'Yes', 'Yes', '2025-03-31 08:10:18'),
-(3, '21', 'Others', 'Repair motherboard', 5, '2025-04-07', '3rd Floor', '2025-04-08', 'Repair Motherboard', 32, 'Joshua Estay', 15, 'pc ako', '2025-04-07', 16, 'Pmo Ako', '2025-04-07', 13, 'Vp Admin', '2025-04-07', 'APPROVED', 'Yes', 'No', '2025-04-07 02:05:16');
+(2, '01', 'Others', 'chairs', 5, '2025-03-31', '3rd Floor', '2025-03-31', 'Need Repairing', 17, 'Employee Employee', 15, 'pc ako', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', 'APPROVED', 'Yes', 'Yes', '2025-03-31 08:10:18');
 
 -- --------------------------------------------------------
 
@@ -1509,7 +1443,8 @@ CREATE TABLE `transfer_property` (
 --
 
 INSERT INTO `transfer_property` (`id`, `date`, `move_from`, `move_to_id`, `item_category`, `is_transfer`, `is_turnover`, `others`, `prepared_by_id`, `prepared_by`, `checked_by_id`, `checked_by`, `checked_by_date`, `accepted_by_id`, `accepted_by`, `accepted_by_date`, `endorsed_by_id`, `endorsed_by`, `endorsed_by_date`, `recommending_by_id`, `recommending_by`, `recommending_by_date`, `approved_by_id`, `approved_by`, `approved_by_date`, `disapproved_by_id`, `comment`, `status`, `date_entry`) VALUES
-(1, '2025-04-08', 'CCIS', 6, 'Spareparts', 'Yes', 'No', 'Transfer', 32, 'Joshua Estay', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'CANCELLED', '2025-04-07 17:21:06');
+(1, '2025-03-31', 'CAS', 6, 'Office Supplies', 'Yes', 'No', 'Transfer', 28, 'Jessa Claire Bernadette Cabusao', 14, 'General Services', '2025-03-31', 19, 'Lorevic SAylon', '2025-03-31', 15, 'pc ako', '2025-03-31', 16, 'Pmo Ako', '2025-03-31', 13, 'Vp Admin', '2025-03-31', NULL, NULL, 'APPROVED', '2025-03-31 09:19:28'),
+(2, '2025-04-01', 'CCJE', 5, 'Office Supplies', 'Yes', 'No', 'Transfer', 29, 'Ronnel Falo', 14, 'General Services', '2025-04-01', 17, 'Employee Employee', '2025-04-01', 15, 'pc ako', '2025-04-01', 16, 'Pmo Ako', '2025-04-01', 13, 'Vp Admin', '2025-04-01', NULL, NULL, 'APPROVED', '2025-04-01 04:21:45');
 
 -- --------------------------------------------------------
 
@@ -1520,7 +1455,6 @@ INSERT INTO `transfer_property` (`id`, `date`, `move_from`, `move_to_id`, `item_
 CREATE TABLE `transfer_property_items` (
   `id` int(11) NOT NULL,
   `transfer_id` int(11) DEFAULT NULL,
-  `inventory_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `unit` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -1536,8 +1470,9 @@ CREATE TABLE `transfer_property_items` (
 -- Dumping data for table `transfer_property_items`
 --
 
-INSERT INTO `transfer_property_items` (`id`, `transfer_id`, `inventory_id`, `quantity`, `unit`, `description`, `brand`, `part_code`, `model_number`, `serial_number`, `status`, `remarks`) VALUES
-(1, 1, 21, 1, 'Pcs', 'Motherboard', 'N/A', '1414', '12', '412', 'Functional', NULL);
+INSERT INTO `transfer_property_items` (`id`, `transfer_id`, `quantity`, `unit`, `description`, `brand`, `part_code`, `model_number`, `serial_number`, `status`, `remarks`) VALUES
+(1, 1, 2, 'Unit', 'Printer', 'Epson', '141', '123', '156', 'Functional', NULL),
+(2, 2, 1, 'Unit', 'Laptop', 'Acer', '1112', '512', '214', 'Functional', NULL);
 
 -- --------------------------------------------------------
 
@@ -1579,8 +1514,7 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `mname`, `department_id`, `username
 (28, 'Jessa Claire Bernadette', 'Cabusao', '', 10, 'jessa', '$2y$10$lXVSKTVQyPwUmS4Ui5d09OlXfRGey5lm8.M9NPGuKbZ74GmiZX4Kq', 'Employee', 'uploads/profile/user.png', '1743412440_signature.png', 'Active', '2025-03-31 09:14:34'),
 (29, 'Ronnel', 'Falo', '', 6, 'ronnel', '$2y$10$keeeKzZBNHrEkrSHXyHjHeMUqBj2U8pvsts3cjkfwE8BZX93tB96.', 'Employee', 'uploads/profile/user.png', '1743480840_signature.png', 'Active', '2025-04-01 04:14:30'),
 (30, 'Desiree', 'Abian', '', 10, 'desiree', '$2y$10$Hbo/mug2QoRf4cTyTE4ULe8NnZdvcE7FvGylaFktmReVxZYgWhrCa', 'Employee', 'uploads/profile/user.png', '1743643260_signature.png', 'Active', '2025-04-03 01:21:19'),
-(31, 'Noel', 'Aguasito', '', 8, 'noel', '$2y$10$IDVtzmyIYC10R04s3FqgnuVToYzVzE2hAA2ENJVVibrI6lQTd1Fgu', 'Employee', 'uploads/profile/user.png', '1743644400_signature.png', 'Active', '2025-04-03 01:40:23'),
-(32, 'Joshua', 'Estay', '', 5, 'joshua', '$2y$10$Z5.fyMkdq3HSf6HFKBkupumgPhBxKf137q.ACUDZf7/Pod8edY7RS', 'Employee', 'uploads/profile/user.png', '1743990900_signature.png', 'Active', '2025-04-07 01:55:35');
+(31, 'Noel', 'Aguasito', '', 8, 'noel', '$2y$10$IDVtzmyIYC10R04s3FqgnuVToYzVzE2hAA2ENJVVibrI6lQTd1Fgu', 'Employee', 'uploads/profile/user.png', '1743644400_signature.png', 'Active', '2025-04-03 01:40:23');
 
 -- --------------------------------------------------------
 
@@ -1618,8 +1552,7 @@ INSERT INTO `withdrawal` (`id`, `pr_no`, `item`, `delivered_to`, `date`, `cv`, `
 (7, '2025-1291', 'Office Supplies', 'CCJE', '2025-04-01', 124, 'Released', 15, 'pc ako', 29, 'Ronnel Falo', '2025-04-01', '2025-04-01 04:17:38'),
 (8, '2025-12812', 'Office Supplies', 'CAS', '2025-04-03', 123644, 'Released', 15, 'pc ako', 30, 'Desiree Abian', '2025-04-03', '2025-04-03 01:22:53'),
 (9, '2025-301', 'Office Supplies', 'Senior High School', '2025-04-03', 512, 'Released', 15, 'pc ako', 31, 'Noel Aguasito', '2025-04-03', '2025-04-03 01:43:18'),
-(10, '2025-0012', 'Office Supplies', 'CAS', '2025-04-03', 341, 'Released', 15, 'pc ako', 26, 'Princess Varona', '2025-04-03', '2025-04-03 02:27:03'),
-(11, '2025-103', 'Spareparts', 'CCIS', '2025-04-07', 411, 'Released', 15, 'pc ako', 32, 'Joshua Estay', '2025-04-07', '2025-04-07 02:01:24');
+(10, '2025-0012', 'Office Supplies', 'CAS', '2025-04-03', 341, 'Released', 15, 'pc ako', 26, 'Princess Varona', '2025-04-03', '2025-04-03 02:27:03');
 
 --
 -- Indexes for dumped tables
@@ -1759,43 +1692,43 @@ ALTER TABLE `history_record`
 -- AUTO_INCREMENT for table `inspection`
 --
 ALTER TABLE `inspection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `job_order`
 --
 ALTER TABLE `job_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=962;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=900;
 
 --
 -- AUTO_INCREMENT for table `logsheet`
 --
 ALTER TABLE `logsheet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `property_disposal`
 --
 ALTER TABLE `property_disposal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `property_disposal_items`
 --
 ALTER TABLE `property_disposal_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `property_inventory`
@@ -1813,7 +1746,7 @@ ALTER TABLE `property_inventory_items`
 -- AUTO_INCREMENT for table `request_form`
 --
 ALTER TABLE `request_form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `technicians`
@@ -1825,25 +1758,25 @@ ALTER TABLE `technicians`
 -- AUTO_INCREMENT for table `transfer_property`
 --
 ALTER TABLE `transfer_property`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `transfer_property_items`
 --
 ALTER TABLE `transfer_property_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `withdrawal`
 --
 ALTER TABLE `withdrawal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
