@@ -184,6 +184,98 @@ $('#btnSaveRemarks').on('click', function() {
 
 });
 
+// Edit disposal items
+$(document).on('click', 'a[data-role=edit]', function(){
+    var id = $(this).data('id');
+    var disapproved_by_id = $(this).data('disapproveid');
+
+    const url = 'database/disposal/get_disposal_items.php';
+   
+    var table = $('#view-table').DataTable();
+    table.clear().draw();
+    $.get(url, { id }, (response) => {
+        const rows = JSON.parse(response);
+        rows.forEach(row => {
+            table.row.add($(`<tr>
+                                <td name="id[]">${row.id}</td>
+                                <td><input type="number" name="quantity[]" class="form-control" min="1" value="${row.quantity}"></td>
+                                <td><input type="text" name="unit[]" class="form-control" value="${row.unit}"></td>
+                                <td><input type="text" name="description[]" class="form-control" value="${row.description}"></td>
+                                <td><input type="text" name="property_code[]" class="form-control" value="${row.property_code}"></td>
+                                <td><input type="text" name="brand[]" class="form-control" value="${row.brand}"></td>
+                                <td><input type="text" name="part_code[]" class="form-control" value="${row.part_code}"></td>
+                                <td><input type="text" name="condition[]" class="form-control" value="${row.conditioned}"></td>
+                            </tr>`)).draw();
+
+        });
+    });
+
+    
+    $('#disposal_id').val(id);
+    $('#edit_id').val(disapproved_by_id);
+    $('#edit-modal').modal('toggle');
+});
+
+// Add edit item to disposal table
+$('#btnSaveEdit').on('click', function() {
+    var tableData = [];
+
+    $('#view-table tbody tr').each(function() {
+        var row = $(this);
+        var rowData = {
+            id: row.find('td').eq(0).text(),
+            quantity: row.find('td').eq(1).find('input').val(),
+            unit: row.find('td').eq(2).find('input').val(),
+            description: row.find('td').eq(3).find('input').val(),
+            property_code: row.find('td').eq(4).find('input').val(),
+            brand: row.find('td').eq(5).find('input').val(),
+            part_code: row.find('td').eq(6).find('input').val(),
+            conditioned: row.find('td').eq(7).find('input').val()
+        };
+        
+        // Check if any field in the row is empty
+        for (var key in rowData) {
+            if (rowData[key] == "") {
+                Swal.fire("System Message", "Please fill in all fields in the row!", "info");
+                emptyFieldFound = true;
+                return // Exit the loop if any field is empty
+            }
+        }
+        tableData.push(rowData);
+    });
+    var disposal_id = $('#disposal_id').val();
+    var disapprove_id = $('#edit_id').val();
+
+    var formData = new FormData();
+    formData.append('data', JSON.stringify(tableData)); 
+    formData.append('disposal_id', disposal_id);
+    formData.append('disapprove_id', disapprove_id);
+
+    $.ajax({
+        url: 'database/disposal/submit_edit.php', 
+        type: 'POST',
+        data: formData,
+        cache: false,
+        processData: false, 
+        contentType: false, 
+        success: function(response) {
+            if($.trim(response.status) == 'success') {
+                Swal.fire('System Message', 'Data saved successfully!', 'info').then(() => {
+                    location.reload();
+                });
+            }
+            else {
+                Swal.fire("System Message", response.message, "info");
+            }
+            console.log('Response from server:', response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Error:', textStatus, errorThrown);
+        }
+    });
+
+});
+
 // Generate disposal report
 $(document).on('click', 'a[data-role=generate]', function(){
     var disposal_id = $(this).data('id');

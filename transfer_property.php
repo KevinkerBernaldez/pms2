@@ -41,6 +41,7 @@
                                             <th>Move To</th>
                                             <th>Category</th>
                                             <th>Items</th>
+                                            <th>Comment</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -61,6 +62,10 @@
     <!-- ADD MODAL -->
 	<?php include ('modal/transfer.php'); ?>
     <!-- END ADD MODAL -->
+
+    <!-- EDIT MODAL -->
+	<?php include ('modal/view/edit_items_transfer.php'); ?>
+    <!-- END EDIT MODAL -->
 
     <!-- VIEW ITEMS MODAL -->
 	<?php include ('modal/view/items_transfer.php'); ?>
@@ -179,12 +184,16 @@
             function getData(status = null) {
                 const url = 'database/transfer/get_transfer.php';
                 var showApproveBtn = "";
+                var showEditBtn = "";
+                var showCancelBtn = "";
                 var table = $('.report-table').DataTable();
                 table.clear().draw();
                 $.get(url, { status }, (response) => {
                     const rows = JSON.parse(response);
                     rows.forEach(row => {
                         showApproveBtn = (row.status == 'FOR USER') ? 'block' : 'none';
+                        showEditBtn = (row.status == 'DISAPPROVED') ? '' : 'none';
+                        showCancelBtn = (row.status == 'FOR GENERAL SERVICES') ? '' : 'none';
                         table.row.add($(`<tr id="${row.id}">
                                             <td>${moment(row.date).format('MMMM D, YYYY')}</td>
                                             <td>${row.move_from}</td>
@@ -193,14 +202,17 @@
                                             <td>
                                                  <a class='btn btn-primary btn-sm' data-role='items' data-id="${row.id}" style="color: white;" title="View Items"><i class="bi bi-binoculars"> </i> </a>
                                             </td>
+                                            <td>${row.comment || ''}</td>
                                             <td>
-                                                <span class="badge bg-${row.status === 'APPROVED' ? 'success' : 'info'}">
+                                                <span class="badge bg-${row.status === 'APPROVED' ? 'success' : row.status === 'DISAPPROVED' ? 'danger' : 'info'}">
                                                     ${row.status}
                                                 </span>
                                             </td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a class='btn btn-success btn-sm' data-role='approve' data-id="${row.id}" style="color: white; display: ${showApproveBtn}" title="Accept Items"><i class="bi bi-hand-thumbs-up"> </i> </a>
+                                                    <a class='btn btn-info btn-sm' data-role='edit' data-id="${row.id}" data-disapproveid="${row.disapproved_by_id}" style="color: white; display: ${showEditBtn}" title="Edit"><i class="bi bi-pencil"> </i> </a>
+                                                    <a class='btn btn-danger btn-sm' data-role='cancel' data-id="${row.id}" style="color: white; display: ${showCancelBtn}" title="Cancel"><i class="bi bi-x-circle"> </i> </a>
                                                     <a class='btn btn-warning btn-sm' data-role='generate' data-id="${row.id}" style="color: white;" title="Generate Form"><i class="bi bi-file-earmark-ruled"> </i> </a>
                                                 </div>
                                             </td>
@@ -209,6 +221,47 @@
                 });
                 table.order([0, 'desc']).draw();
             }
+
+            $(document).on('click', 'a[data-role=cancel]', function(){
+                var id = $(this).data('id');
+                const formData = {
+                    id: id
+                };
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You are about to cancel this transaction.",
+                    icon: 'warning',
+                    showCancelButton: true,  // Show the Cancel button
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'Cancel',
+                    reverseButtons: true      // Reverses the buttons order
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            data : formData,
+                            url  : 'database/transfer/cancel.php',
+                            type : 'POST',
+                            beforeSend: function(){
+                                console.log('loading');
+                            },
+                            complete: function(){
+                                console.log('done');
+                            },
+                            success: function(response){
+                                if ($.trim(response) === 'success') {
+                                    Swal.fire('System Message', 'Cancelled successfully!', 'success').then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire('System Message', $.trim(response), 'info');
+                                }
+                            }
+                        });
+                    }
+                });
+                
+            });
             
             $(document).on('click', 'a[data-role=approve]', function(){
                 var id = $(this).data('id');

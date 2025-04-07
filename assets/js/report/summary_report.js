@@ -62,8 +62,6 @@ function fetchInventoryData(in_charge, month, year) {
         inventory_items = JSON.parse(response);
     });
 
-    console.log(inventory_items);
-
     $.ajaxSetup({async: false});
     $.get(count_url, { in_charge, month, year }, (response) => {
         count_items = JSON.parse(response);

@@ -35,16 +35,16 @@
         $stmtInsert->execute();
         $lastInsertedId = $connection->insert_id;
 
-        $stmt1 = $connection->prepare("INSERT INTO transfer_property_items (`transfer_id`, `quantity`, `unit`, `description`, `brand`, `part_code`, `model_number`, `serial_number`, `status`) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt1 = $connection->prepare("INSERT INTO transfer_property_items (`transfer_id`, `inventory_id`, `quantity`, `unit`, `description`, `brand`, `part_code`, `model_number`, `serial_number`, `status`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $stmt2 = $connection->prepare("UPDATE inventory SET quantity = quantity - ? WHERE id = ?");
+        // $stmt2 = $connection->prepare("UPDATE inventory SET quantity = quantity - ? WHERE id = ?");
 
         // DELETE query for when quantity becomes 0
-        $stmt4 = $connection->prepare("DELETE FROM inventory WHERE id = ?");
+        // $stmt4 = $connection->prepare("DELETE FROM inventory WHERE id = ?");
 
-        $stmt3 = $connection->prepare("INSERT INTO inventory (`user_id`, `item_category`, `pr_no`, `quantity`, `unit`, `description`, `brand`, `part_code`, `model_number`, `serial_number`, `status`) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        // $stmt3 = $connection->prepare("INSERT INTO inventory (`user_id`, `item_category`, `pr_no`, `quantity`, `unit`, `description`, `brand`, `part_code`, `model_number`, `serial_number`, `status`) 
+        //     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         foreach ($myArray as $item) {
             $id = $item['id'];
@@ -59,33 +59,33 @@
             $pr_number = $item['pr_number'];
 
             // Bind the parameters for the insert query
-            $stmt1->bind_param('iisssssss', $lastInsertedId, $quantity, $unit, $description, $brand, $part_code, $model_number, $serial_number, $status);
+            $stmt1->bind_param('iiisssssss', $lastInsertedId, $id, $quantity, $unit, $description, $brand, $part_code, $model_number, $serial_number, $status);
             $stmt1->execute();
 
             // Bind the parameters for the update query
-            $stmt2->bind_param('ii', $quantity, $id);
-            $stmt2->execute();
+            // $stmt2->bind_param('ii', $quantity, $id);
+            // $stmt2->execute();
             
             // After the update, check if the quantity is now 0
-            $result = $connection->query("SELECT quantity FROM inventory WHERE id = $id");
-            $row = $result->fetch_assoc();
-            if ($row['quantity'] == 0) {
+            // $result = $connection->query("SELECT quantity FROM inventory WHERE id = $id");
+            // $row = $result->fetch_assoc();
+            // if ($row['quantity'] == 0) {
                 // If quantity is 0, delete the row
-                $stmt4->bind_param('i', $id);
-                $stmt4->execute();
-            }
+                // $stmt4->bind_param('i', $id);
+                // $stmt4->execute();
+            // }
 
             // Bind the parameters for the insert query
-            $stmt3->bind_param('ississsssss', $user_in_charge, $category, $pr_number, $quantity, $unit, $description, $brand, $part_code, $model_number, $serial_number, $status);
-            $stmt3->execute();
+            // $stmt3->bind_param('ississsssss', $user_in_charge, $category, $pr_number, $quantity, $unit, $description, $brand, $part_code, $model_number, $serial_number, $status);
+            // $stmt3->execute();
 
         }
 
        // Close the prepared statements
         $stmt1->close();
-        $stmt2->close();
-        $stmt3->close();
-        $stmt4->close();
+        // $stmt2->close();
+        // $stmt3->close();
+        // $stmt4->close();
 
         echo json_encode(["status" => "success", "message" => "Records inserted successfully"]);
 

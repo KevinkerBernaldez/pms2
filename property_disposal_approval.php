@@ -48,6 +48,7 @@
                                             <th>Department</th>
                                             <th>Category</th>
                                             <th>Items</th>
+                                            <th>Comment</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -109,6 +110,7 @@
                                             <td>
                                                 <a class='btn btn-primary btn-sm' data-role='items' data-userrole="${role}" data-status="${row.status}" data-id="${row.id}" style="color: white;" title="View Items"><i class="bi bi-binoculars"> </i> </a>
                                             </td>
+                                            <td>${row.comment || '-'}</td>
                                             <td>
                                                 <span class="badge bg-${row.status === 'APPROVED' ? 'success' : 'info'}">
                                                     ${row.status}
@@ -117,6 +119,7 @@
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a class='btn btn-success btn-sm' data-role='approve' data-id="${row.id}" style="color: white; display: ${showApproveBtn}" title="Approve Request"><i class="bi bi-hand-thumbs-up"> </i> </a>
+                                                    <a class='btn btn-danger btn-sm' data-role='disapprove' data-id="${row.id}" style="color: white; display: ${showApproveBtn}" title="Disapprove Request"><i class="bi bi-hand-thumbs-down"> </i> </a>
                                                     <a class='btn btn-warning btn-sm' data-role='generate' data-id="${row.id}" style="color: white;" title="Generate Form"><i class="bi bi-file-earmark-ruled"> </i> </a>
                                                     <a class='btn btn-info btn-sm' data-role='open-pdf' data-id="${row.id}" href="uploads/incident_report/${row.file}" target="_blank" style="color: white;" title="Open File">
                                                         <i class="bi bi-file-earmark-pdf"> </i>
@@ -170,6 +173,60 @@
                 
             });
             
+            $(document).on('click', 'a[data-role=disapprove]', function() {
+                var id = $(this).data('id');
+                var email = $(this).data('email');  // Optional if email is needed
+                const formData = { id: id, email: email };
+
+                // Show SweetAlert2 input prompt for feedback
+                Swal.fire({
+                    title: "Feedback / Remarks",
+                    text: "Please enter reason for disapproval:",
+                    input: 'textarea',  // Using a textarea for multi-line input
+                    showCancelButton: true,
+                    inputPlaceholder: "Write something",
+                    preConfirm: (inputValue) => {
+                        // Check if the input is empty and prevent proceeding if it is
+                        if (!inputValue) {
+                            Swal.showValidationMessage("You need to write something!");
+                            return false;
+                        }
+                        return inputValue;
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If the user entered a reason, prepare the form data
+                        formData.input_value = result.value;
+
+                        // Show the loading state
+                        Swal.fire({
+                            title: 'Please wait...',
+                            text: 'Disapproving transaction...',
+                            icon: 'info',
+                            allowOutsideClick: false, // Prevent clicking outside to close
+                            didOpen: () => {
+                                Swal.showLoading(); // Show the loading spinner
+                            }
+                        });
+
+                        // Send the disapproval request via $.post()
+                        $.post('database/disposal/disapprove.php', formData, (response) => {
+                            console.log(response);
+                            if ($.trim(response) === 'success') {
+                                Swal.fire({
+                                    title: 'System Message',
+                                    text: "The transaction has been disapproved successfully.",
+                                    icon: 'success',
+                                    confirmButtonText: "Okay"
+                                }).then(() => location.reload()); // Reload the page after success
+                            } else {
+                                Swal.fire('Error', 'There was a problem disapproving the transaction.', 'error');
+                            }
+                        });
+                    }
+                });
+            });
+
         });
     </script>
 </body>

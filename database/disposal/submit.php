@@ -41,10 +41,10 @@
         $stmtInsert->execute();
         $lastInsertedId = $connection->insert_id;
 
-        $stmt1 = $connection->prepare("INSERT INTO property_disposal_items (`disposal_id`, `quantity`, `unit`, `description`, `property_code`, `brand`, `part_code`, `conditioned`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt1 = $connection->prepare("INSERT INTO property_disposal_items (`disposal_id`, `inventory_id`, `quantity`, `unit`, `description`, `property_code`, `brand`, `part_code`, `conditioned`) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $stmt2 = $connection->prepare("UPDATE inventory SET quantity = quantity - ? WHERE id = ?");
+        // $stmt2 = $connection->prepare("UPDATE inventory SET quantity = quantity - ? WHERE id = ?");
 
         foreach ($data as $item) {
             $id = $item['id'];
@@ -57,18 +57,18 @@
             $conditioned = $item['conditioned'];
 
             // Bind the parameters for the insert query
-            $stmt1->bind_param('iissssss', $lastInsertedId, $quantity, $unit, $description, $property_code, $brand, $part_code, $conditioned);
+            $stmt1->bind_param('iiissssss', $lastInsertedId, $id, $quantity, $unit, $description, $property_code, $brand, $part_code, $conditioned);
             $stmt1->execute();
 
             // Bind the parameters for the update query
-            $stmt2->bind_param('ii', $quantity, $id);
-            $stmt2->execute();
+            // $stmt2->bind_param('ii', $quantity, $id);
+            // $stmt2->execute();
 
         }
 
        // Close the prepared statements
         $stmt1->close();
-        $stmt2->close();
+        // $stmt2->close();
 
         echo json_encode(["status" => "success", "message" => "Records inserted successfully"]);
 

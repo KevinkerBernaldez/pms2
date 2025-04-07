@@ -73,6 +73,9 @@
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <a class='btn btn-warning btn-sm' data-role='generate' data-id="<?php echo $row['request_no']; ?>" style="color: white;" title="Generate Form"><i class="bi bi-file-earmark-ruled"> </i> </a>
+                                                        <?php if ($row['status'] == 'FOR PROPERTY CUSTODIAN'): ?>
+                                                            <a class='btn btn-danger btn-sm' data-role='cancel' data-id="<?php echo $row['id']; ?>" style="color: white;" title="Cancel"><i class="bi bi-x-circle"> </i> </a>
+                                                        <?php endif; ?>
                                                         <?php if ($row['is_feedback'] == 'No'): ?>
                                                             <a class='btn btn-primary btn-sm' data-role='feedback' data-id="<?php echo $row['request_no']; ?>" style="color: white; " title="Create Feedback"><i class="bi bi-file-plus"> </i> </a>
                                                         <?php endif; ?>
@@ -145,6 +148,47 @@
 	    $(document).ready(function(){
             var table = $('#example').DataTable({
                 order: [[0, 'desc']],
+            });
+
+            $(document).on('click', 'a[data-role=cancel]', function(){
+                var id = $(this).data('id');
+                const formData = {
+                    id: id
+                };
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You are about to cancel this transaction.",
+                    icon: 'warning',
+                    showCancelButton: true,  // Show the Cancel button
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'Cancel',
+                    reverseButtons: true      // Reverses the buttons order
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            data : formData,
+                            url  : 'database/request/cancel.php',
+                            type : 'POST',
+                            beforeSend: function(){
+                                console.log('loading');
+                            },
+                            complete: function(){
+                                console.log('done');
+                            },
+                            success: function(response){
+                                if ($.trim(response) === 'success') {
+                                    Swal.fire('System Message', 'Cancelled successfully!', 'success').then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire('System Message', $.trim(response), 'info');
+                                }
+                            }
+                        });
+                    }
+                });
+                
             });
 
             $(document).on('click', 'a[data-role=feedback]', function(){

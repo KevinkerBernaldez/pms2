@@ -148,9 +148,103 @@ $(document).on('click', 'a[data-role=items]', function(){
     $('#view-modal').modal('toggle');
 });
 
+// Edit disposal items
+$(document).on('click', 'a[data-role=edit]', function(){
+    var id = $(this).data('id');
+    var disapproved_by_id = $(this).data('disapproveid');
+
+    const url = 'database/transfer/get_transfer_items.php';
+   
+    var table = $('#view-table').DataTable();
+    table.clear().draw();
+    $.get(url, { id }, (response) => {
+        const rows = JSON.parse(response);
+        rows.forEach(row => {
+            table.row.add($(`<tr>
+                                <td name="id[]">${row.id}</td>
+                                <td><input type="number" name="quantity[]" class="form-control" min="1" value="${row.quantity}"></td>
+                                <td><input type="text" name="unit[]" class="form-control" value="${row.unit}"></td>
+                                <td><input type="text" name="description[]" class="form-control" value="${row.description}"></td>
+                                <td><input type="text" name="brand[]" class="form-control" value="${row.brand}"></td>
+                                <td><input type="text" name="part_code[]" class="form-control" value="${row.part_code}"></td>
+                                <td><input type="text" name="model_number[]" class="form-control" value="${row.model_number}"></td>
+                                <td><input type="text" name="serial_number[]" class="form-control" value="${row.serial_number}"></td>
+                                <td><input type="text" name="status[]" class="form-control" value="${row.status}"></td>
+                            </tr>`)).draw();
+
+        });
+    });
+
+    
+    $('#transfer_id').val(id);
+    $('#edit_id').val(disapproved_by_id);
+    $('#edit-modal').modal('toggle');
+});
+
+// Add edit item to disposal table
+$('#btnSaveEdit').on('click', function() {
+    var tableData = [];
+
+    $('#view-table tbody tr').each(function() {
+        var row = $(this);
+        var rowData = {
+            id: row.find('td').eq(0).text(),
+            quantity: row.find('td').eq(1).find('input').val(),
+            unit: row.find('td').eq(2).find('input').val(),
+            description: row.find('td').eq(3).find('input').val(),
+            brand: row.find('td').eq(4).find('input').val(),
+            part_code: row.find('td').eq(5).find('input').val(),
+            model_number: row.find('td').eq(6).find('input').val(),
+            serial_number: row.find('td').eq(7).find('input').val(),
+            status: row.find('td').eq(8).find('input').val()
+        };
+        
+        // Check if any field in the row is empty
+        for (var key in rowData) {
+            if (rowData[key] == "") {
+                Swal.fire("System Message", "Please fill in all fields in the row!", "info");
+                emptyFieldFound = true;
+                return // Exit the loop if any field is empty
+            }
+        }
+        tableData.push(rowData);
+    });
+    var transfer_id = $('#transfer_id').val();
+    var disapprove_id = $('#edit_id').val();
+
+    var formData = new FormData();
+    formData.append('data', JSON.stringify(tableData)); 
+    formData.append('transfer_id', transfer_id);
+    formData.append('disapprove_id', disapprove_id);
+
+    $.ajax({
+        url: 'database/transfer/submit_edit.php', 
+        type: 'POST',
+        data: formData,
+        cache: false,
+        processData: false, 
+        contentType: false, 
+        success: function(response) {
+            if($.trim(response.status) == 'success') {
+                Swal.fire('System Message', 'Data saved successfully!', 'info').then(() => {
+                    location.reload();
+                });
+            }
+            else {
+                Swal.fire("System Message", response.message, "info");
+            }
+            console.log('Response from server:', response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Error:', textStatus, errorThrown);
+        }
+    });
+
+});
+
 $(document).on('click', 'a[data-role=generate]', function(){
-    var disposal_id = $(this).data('id');
-    fetchTransferData(disposal_id);
+    var transfer_id = $(this).data('id');
+    fetchTransferData(transfer_id);
     setTimeout(() => {
         var toPrint = document.getElementById('report-form');
         var newTab = window.open('', '_blank');
